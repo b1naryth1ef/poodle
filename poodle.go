@@ -2,7 +2,7 @@ package poodle
 
 /*
 #cgo CFLAGS: -I${SRCDIR}
-#cgo LDFLAGS: -L${SRCDIR}/build/Debug/ -L${SRCDIR}/build/Release/ -L${SRCDIR}/ -lpoodle
+#cgo LDFLAGS: -L${SRCDIR}/lib -lpoodle
 
 #include <stdlib.h>
 #include <stdint.h>
