@@ -1,0 +1,35 @@
+name: 'Build'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+# This allows a subsequently queued workflow run to interrupt previous runs
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: setup-msbuild
+        uses: microsoft/setup-msbuild@v1
+      - name: setup-cmake
+        uses: lukka/get-cmake@latest
+      - name: Build Binary
+        shell: cmd
+        run: bin/build.cmd
+      - uses: actions/upload-artifact@v3
+        with:
+          name: poodle.dll
+          path: build/Release/poodle.dll

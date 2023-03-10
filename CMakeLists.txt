@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.24)
+project(poodle DESCRIPTION "oodle decoder")
+include_directories(${CMAKE_SOURCE_DIR}/include)
+link_directories(${CMAKE_SOURCE_DIR}/lib)
+add_library(poodle SHARED src/entrypoint.cpp)
+target_link_libraries(poodle oo2net_win64.lib)
+target_compile_features(poodle PUBLIC cxx_std_20)
